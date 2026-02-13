@@ -1,3 +1,5 @@
+apply plugin: 'com.android.application'
+
 android {
     compileSdk 34
 
@@ -14,4 +16,8 @@ android {
             minifyEnabled false
         }
     }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 }
