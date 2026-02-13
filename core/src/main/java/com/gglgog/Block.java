@@ -1,27 +1,66 @@
 package com.gglgog;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Block {
+
+    // Основные поля
     public String name;
     public String id;
     public String texture;
-    public double hardness;
-    public boolean canBreak;
-    public boolean canPlace;
-    public List<String> dropItems;
-    public Inventory inventory; // бонус: инвентарь блока
-    public String spawnText;    // текст/число при спавне
+    public String spawnText; // текст/число при спавне
 
-    public Block(String name, String id, String texture, double hardness, boolean canBreak, boolean canPlace, List<String> dropItems) {
+    // Галочки
+    public boolean isBreakable;           // [] Галочка "можно ломать"
+    public boolean hasCrafting;           // [] Крафт
+    public boolean canRotate;             // [] Можно поворачивать к игроку
+    public boolean personalInventory;     // [] Личный инвентарь
+    public boolean openInventory;         // [] Можно открыть инвентарь
+
+    // Варианты
+    public String destroySpeedMode;       // {true,false,custom}
+    public double customDestroySpeed;     // если custom
+
+    // Списки и текстовые поля
+    public List<String> dropItems;        // [+] Добавление/список дропов
+    public String description;            // __ текст/описание блока
+    public String version;                // __ версия блока/предмета
+
+    // Крафт
+    public String[][] craftingGrid;       // 3x3 сетка крафта
+    public boolean[][] craftingEnabled;   // флаг включено ли для слота
+
+    // Инвентарь
+    public Inventory inventory;
+
+    public Block(String name, String id) {
         this.name = name;
         this.id = id;
-        this.texture = texture;
-        this.hardness = hardness;
-        this.canBreak = canBreak;
-        this.canPlace = canPlace;
-        this.dropItems = dropItems;
-        this.inventory = new Inventory(5); // стандартный инвентарь 5 слотов
-        this.spawnText = "";
+        this.texture = "";
+        this.spawnText = "1";
+
+        this.isBreakable = true;
+        this.hasCrafting = false;
+        this.canRotate = false;
+        this.personalInventory = false;
+        this.openInventory = false;
+
+        this.destroySpeedMode = "true";
+        this.customDestroySpeed = 1.0;
+
+        this.dropItems = new ArrayList<>();
+        this.description = "";
+        this.version = "1.21";
+
+        this.craftingGrid = new String[3][3];
+        this.craftingEnabled = new boolean[3][3];
+        this.inventory = new Inventory(5);
+    }
+
+    // Метод для установки крафта
+    public void setCrafting(String[][] grid, boolean[][] enabled) {
+        this.craftingGrid = grid;
+        this.craftingEnabled = enabled;
     }
 }
